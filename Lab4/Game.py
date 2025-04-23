@@ -32,13 +32,16 @@ class Paddle:
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
 
-    def move(self, dy):
-        self.rect.y += dy
+    def CheckVerticalPosition(self):
         # Обмеження руху по вертикалі
         if self.rect.top <= 0:
             self.rect.top = 0
         if self.rect.bottom >= HEIGHT:
             self.rect.bottom = HEIGHT
+
+    def move(self, dy):
+        self.rect.y += dy
+        self.CheckVerticalPosition()
 
 class PlayerPaddle(Paddle):
     def __init__(self, x, y, width, height, color):
@@ -47,11 +50,7 @@ class PlayerPaddle(Paddle):
     def update(self):
         mouse_y = pygame.mouse.get_pos()[1]
         self.rect.centery = mouse_y
-        # Обмеження руху по вертикалі
-        if self.rect.top <= 0:
-            self.rect.top = 0
-        if self.rect.bottom >= HEIGHT:
-            self.rect.bottom = HEIGHT
+        self.CheckVerticalPosition()
 
 class BotPaddle(Paddle):
     def __init__(self, x, y, width, height, color):
@@ -69,11 +68,7 @@ class BotPaddle(Paddle):
                 self.move(-self.speed)
             else:
                 self.move(self.speed)
-        # Обмеження руху по вертикалі
-        if self.rect.top <= 0:
-            self.rect.top = 0
-        if self.rect.bottom >= HEIGHT:
-            self.rect.bottom = HEIGHT
+        self.CheckVerticalPosition()
 
 class Ball:
     def __init__(self, x, y, radius, color):
