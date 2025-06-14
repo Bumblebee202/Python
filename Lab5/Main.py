@@ -88,7 +88,7 @@ def FilterEvenExamples():
 
 
 def DisplayInfoExamples():
-    Task2.DisplayInfo(firstName="Yura", lastName="Сидоров")
+    Task2.DisplayInfo(firstName="Yura", lastName="Sydorov")
     Task2.DisplayInfo(product="Ноутбук", price=1200.50, currency="USD", brand="Acer")
     Task2.DisplayInfo(id=1, status="active")
     userData = {"username": "user123", "email": "user@example.com", "isActive": True}
