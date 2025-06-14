@@ -23,7 +23,7 @@ class MovingPointsSystem:
         self.points = []
         self.min_radius = min_radius
         self.max_radius = max_radius
-        self.rotation_speed_per_second = rotation_speed_per_second  
+       
         self._initialize_points()
 
     def _initialize_points(self):
@@ -35,10 +35,13 @@ class MovingPointsSystem:
             color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             self.points.append({"position": position, "radius": radius, "angle": angle, "color": color})
 
+        self.rotation_speed_per_second = [random.uniform(1.0, 100.0) for _ in self.points]  
+
     def update(self, new_center, delta_time):
         self.center = pg.Vector2(new_center)
-        angle_change = self.rotation_speed_per_second * delta_time
-        for point_data in self.points:
+        
+        for point_data, speed in zip(self.points, self.rotation_speed_per_second):
+            angle_change = speed * delta_time
             point_data["angle"] += angle_change
             pos_offset = pg.Vector2(point_data["radius"] * math.cos(point_data["angle"]), point_data["radius"] * math.sin(point_data["angle"]))
             point_data["position"] = self.center + pos_offset
@@ -65,6 +68,8 @@ while run_loop:
             continue
 
     mouse_pos = pg.mouse.get_pos()
+
+    
 
     # Update
     points_system.update(mouse_pos, delta_time)
